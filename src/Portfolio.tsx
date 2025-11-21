@@ -12,9 +12,35 @@ import {
 } from "react-icons/si";
 import Typed from "typed.js";
 import { GoDownload } from "react-icons/go";
+import { cn } from "./util";
 
 const MATCHA = {
   matchaGreen: "#88A37C",
+  primaryButton: "bg-[#88A37C] text-white",
+  secondaryButton: "border-[#88A37C] text-[#88A37C]",
+};
+
+const HrefButton: React.FC<{
+  children: React.ReactElement;
+  href: string;
+  target?: string;
+  appearence: "primary" | "secondary";
+  download?: boolean;
+}> = ({ children, href, appearence = "primary", download = false, target }) => {
+  return (
+    <motion.a
+      href={href}
+      download={download}
+      target={target}
+      whileHover={{ y: -6, scale: 1.02 }}
+      className={cn(
+        "px-6 py-3 rounded-xl font-semibold flex items-center gap-2  shadow-md ",
+        appearence == "primary" ? MATCHA.primaryButton : MATCHA.secondaryButton,
+      )}
+    >
+      {children}
+    </motion.a>
+  );
 };
 
 const PROJECTS = [
@@ -59,15 +85,19 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    document.documentElement.setAttribute(
+      "data-theme",
+      dark ? "dark" : "light"
+    );
   }, [dark]);
 
   const iconStyle = "text-4xl md:text-5xl";
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-300 ${dark ? "bg-[#0E0F0E] text-[#EAEAEA]" : "bg-[#F3F8F2] text-[#1A1A1A]"
-        }`}
+      className={`min-h-screen transition-colors duration-300 ${
+        dark ? "bg-[#0E0F0E] text-[#EAEAEA]" : "bg-[#F3F8F2] text-[#1A1A1A]"
+      }`}
       data-theme="light"
     >
       {showNav && (
@@ -75,8 +105,11 @@ export default function Portfolio() {
           initial={{ y: -60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className={`fixed top-0 left-0 right-0 backdrop-blur-md bg-opacity-80 w-full flex justify-between items-center px-8 py-4 border-b z-20 ${dark ? "border-[#88A37C]/30 bg-[#0E0F0E]" : "border-[#88A37C] bg-[#F3F8F2]"
-            }`}
+          className={`fixed top-0 left-0 right-0 backdrop-blur-md bg-opacity-80 w-full flex justify-between items-center px-8 py-4 border-b z-20 ${
+            dark
+              ? "border-[#88A37C]/30 bg-[#0E0F0E]"
+              : "border-[#88A37C] bg-[#F3F8F2]"
+          }`}
         >
           <h1
             className="text-2xl font-semibold"
@@ -120,29 +153,29 @@ export default function Portfolio() {
 
           {/* CTA */}
           <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="/resume.pdf"
-              download
-              className="px-6 py-3 rounded-xl font-semibold flex items-center gap-2 bg-[#88A37C] text-white shadow-md"
-            >
-              <GoDownload /> Resume
-            </a>
-            <a
+            <HrefButton href="./resume.pdf" download appearence="primary">
+              <>
+                <GoDownload /> Resume
+              </>
+            </HrefButton>
+            <HrefButton
               href="https://github.com/SathvikDachepalli"
+              appearence="secondary"
               target="_blank"
-              rel="noreferrer"
-              className="px-6 py-3 rounded-xl font-semibold flex items-center gap-2 border border-[#88A37C] text-[#88A37C]"
             >
-              <SiGithub /> GitHub
-            </a>
-            <a
+              <>
+                <SiGithub /> GitHub
+              </>
+            </HrefButton>
+            <HrefButton
               href="https://www.linkedin.com/in/sathvik-dachepalli"
+              appearence="secondary"
               target="_blank"
-              rel="noreferrer"
-              className="px-6 py-3 rounded-xl font-semibold flex items-center gap-2 border border-[#88A37C] text-[#88A37C]"
             >
-              <SiLinkedin /> LinkedIn
-            </a>
+              <>
+                <SiLinkedin /> LinkedIn
+              </>
+            </HrefButton>
           </div>
         </div>
 
