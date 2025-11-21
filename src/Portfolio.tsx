@@ -16,8 +16,8 @@ import { cn } from "./util";
 
 const MATCHA = {
   matchaGreen: "#88A37C",
-  primaryButton: "bg-[#88A37C] text-white",
-  secondaryButton: "border-[#88A37C] text-[#88A37C]",
+  primaryButton: "bg-[#88A37C] text-white dark:shadow-[#3d3d3d]",
+  secondaryButton: "border-[#88A37C] text-[#88A37C] dark:shadow-[#88A37C]",
 };
 
 const HrefButton: React.FC<{
@@ -34,7 +34,7 @@ const HrefButton: React.FC<{
       target={target}
       whileHover={{ y: -6, scale: 1.02 }}
       className={cn(
-        "px-6 py-3 rounded-xl font-semibold flex items-center gap-2  shadow-md ",
+        "px-6 py-3 rounded-xl font-semibold flex items-center gap-2 shadow-md ",
         appearence == "primary" ? MATCHA.primaryButton : MATCHA.secondaryButton,
       )}
     >
