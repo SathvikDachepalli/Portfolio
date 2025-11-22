@@ -35,7 +35,7 @@ const HrefButton: React.FC<{
       whileHover={{ y: -6, scale: 1.02 }}
       className={cn(
         "px-6 py-3 rounded-xl font-semibold flex items-center gap-2 shadow-md ",
-        appearence == "primary" ? MATCHA.primaryButton : MATCHA.secondaryButton,
+        appearence == "primary" ? MATCHA.primaryButton : MATCHA.secondaryButton
       )}
     >
       {children}
@@ -47,15 +47,27 @@ const PROJECTS = [
   {
     title: "Smart Cart (IoT)",
     desc: "Led a 6-member team building an IoT Smart Cart with clean UI and smooth product interaction.",
+    tech: ["python", "arudino", "flask"],
   },
   {
     title: "Internet Vehicle Interface",
     desc: "ESP32-CAM IoT system enabling remote vehicle control using real-time streaming.",
+    tech: ["python", "arudino", "http"],
   },
   {
     title: "Sign Language Recognition (CNN)",
     desc: "Real-time ASL translator built using Python + CNN.",
+    tech: ["python", "CNN", "ML"],
   },
+];
+
+const programs = [
+  { icon: SiReact, name: "React" },
+  { icon: SiTailwindcss, name: "Tailwind CSS" },
+  { icon: SiJavascript, name: "JavaScript" },
+  { icon: SiTypescript, name: "TypeScript" },
+  { icon: SiPython, name: "Python" },
+  { icon: SiNodedotjs, name: "Node.js" },
 ];
 
 export default function Portfolio() {
@@ -220,24 +232,18 @@ export default function Portfolio() {
         >
           Tech Stack
         </h3>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-8 text-center">
-          {[
-            SiReact,
-            SiTailwindcss,
-            SiJavascript,
-            SiTypescript,
-            SiPython,
-            SiNodedotjs,
-          ].map((Icon, idx) => (
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-8 justify-center">
+          {programs.map((program, idx) => (
             <motion.div
               key={idx}
               whileHover={{ scale: 1.15 }}
-              className="flex justify-center"
+              className="flex justify-center flex-col items-center gap-2"
             >
-              <Icon
+              <program.icon
                 className={iconStyle}
                 style={{ color: MATCHA.matchaGreen }}
               />
+              <div>{program.name}</div>
             </motion.div>
           ))}
         </div>
@@ -256,10 +262,23 @@ export default function Portfolio() {
             <motion.div
               key={idx}
               whileHover={{ y: -6, scale: 1.02 }}
-              className="p-6 rounded-2xl shadow-lg border border-[#88A37C]/30"
+              className="p-6 rounded-2xl shadow-lg border border-[#88A37C]/30 space-y-2"
             >
               <h4 className="text-xl font-semibold mb-2">{project.title}</h4>
               <p className="opacity-80 text-sm">{project.desc}</p>
+              <div className="flex gap-2">
+                {project.tech.map((item) => (
+                  <div
+                    className={cn(
+                      "rounded-md border border-green-800 text-xs px-2 py-1 capitalize",
+                      dark ? MATCHA.secondaryButton : MATCHA.primaryButton,
+                      "dark:text-white"
+                    )}
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
